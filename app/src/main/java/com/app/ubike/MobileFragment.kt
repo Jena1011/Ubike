@@ -19,6 +19,7 @@ class MobileFragment : Fragment() {
         val binding = FragmentMobileBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.rvStations.adapter = StationsAdapter()
         return binding.root
     }
 
