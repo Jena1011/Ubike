@@ -7,12 +7,12 @@
 
     <fragment
         android:id="@+id/menuFragment"
-        android:name="com.app.ubike.MenuFragment"
+        android:name="com.app.ubike.view.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" />
     <fragment
         android:id="@+id/mobileFragment"
-        android:name="com.app.ubike.MobileFragment"
+        android:name="com.app.ubike.view.MobileFragment"
         android:label="fragment_mobile"
         tools:layout="@layout/fragment_mobile" />
 </navigation>

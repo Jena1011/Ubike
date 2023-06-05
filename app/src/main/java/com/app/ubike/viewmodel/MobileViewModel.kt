@@ -1,7 +1,7 @@
-package com.app.ubike
+package com.app.ubike.viewmodel
 
 import androidx.lifecycle.ViewModel
 
 class MobileViewModel : ViewModel() {
-    val test = "測試"
+    
 }
