@@ -3,11 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/menuFragment">
+    app:startDestination="@id/mobileFragment">
 
     <fragment
         android:id="@+id/menuFragment"
         android:name="com.app.ubike.MenuFragment"
         android:label="fragment_menu"
         tools:layout="@layout/fragment_menu" />
+    <fragment
+        android:id="@+id/mobileFragment"
+        android:name="com.app.ubike.MobileFragment"
+        android:label="fragment_mobile"
+        tools:layout="@layout/fragment_mobile" />
 </navigation>
