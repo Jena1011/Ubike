@@ -7,4 +7,8 @@
     <string name="news">最新消息</string>
     <string name="events">活動專區</string>
     <string name="label_text">登入</string>
+    <string name="search_stations">搜尋站點</string>
+    <string name="city">縣市</string>
+    <string name="area">區域</string>
+    <string name="station_name">站點名稱</string>
 </resources>
