@@ -1,14 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <!--uBike Logo-->
+    <View
+        android:id="@+id/logo_180x18"
+        android:layout_width="65dp"
+        android:layout_height="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="32dp"
+        android:background="@drawable/logo_180x180"
+        app:layout_constraintBottom_toTopOf="@id/bg_green"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- close icon -->
+    <View
+        android:id="@+id/icon_menu"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="29dp"
+        android:layout_marginBottom="29dp"
+        android:background="@drawable/icon_close"
+        app:layout_constraintBottom_toTopOf="@id/bg_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- green bg -->
+    <View
+        android:id="@+id/bg_green"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="72dp"
+        android:background="#B5CC22"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- frame_menu -->
+    <LinearLayout
+        android:id="@+id/frame_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="32dp"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/bg_green">
+
+        <!-- 使用說明 -->
+        <TextView
+            android:id="@+id/tv_instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:gravity="top"
+            android:text="@string/instructions"
+            android:textAppearance="@style/my_style" />
+
+        <!-- 收費方式 -->
+        <TextView
+            android:id="@+id/tv_cost"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
+            android:gravity="top"
+            android:text="@string/cost"
+            android:textAppearance="@style/my_style" />
+
+        <!-- 站點資訊 -->
+        <TextView
+            android:id="@+id/tv_stations"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
+            android:gravity="top"
+            android:text="@string/stations"
+            android:textAppearance="@style/my_style" />
+
+        <!-- 最新消息 -->
+        <TextView
+            android:id="@+id/tv_news"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
+            android:gravity="top"
+            android:text="@string/news"
+            android:textAppearance="@style/my_style" />
+
+        <!-- 活動專區 -->
+        <TextView
+            android:id="@+id/tv_events"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="@string/events"
+            android:textAppearance="@style/my_style" />
+
+    </LinearLayout>
+
+    <!-- login-bt -->
+    <RelativeLayout
+        android:id="@+id/button"
+        android:layout_width="90dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="31dp"
+        android:background="@drawable/button"
+
+        app:layout_constraintBottom_toBottomOf="@id/bg_green"
+        app:layout_constraintEnd_toEndOf="@+id/frame_menu"
+        app:layout_constraintStart_toStartOf="@+id/frame_menu">
+
+        <!-- login-text -->
+        <TextView
+            android:id="@+id/label_text"
+            android:layout_width="46dp"
+            android:layout_height="26dp"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/label_text"
+            android:textAppearance="@style/label_text" />
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
