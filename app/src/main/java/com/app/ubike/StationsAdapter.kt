@@ -1,5 +1,6 @@
 package com.app.ubike
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +23,12 @@ class StationsAdapter : RecyclerView.Adapter<StationsAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
+        // 奇偶行顏色不同
+        if (position%2==0){
+            holder.itemView.setBackgroundColor(Color.argb(1, 246, 246, 246))
+        }else{
+            holder.itemView.setBackgroundColor(Color.argb(255, 246, 246, 246))
+        }
     }
 
 
