@@ -22,7 +22,7 @@ class MobileFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        binding.rvStations.adapter = StationsAdapter()
+//        binding.rvStations.adapter = StationsAdapter()
 
         return binding.root
     }
