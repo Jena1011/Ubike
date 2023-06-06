@@ -151,21 +151,22 @@
                     android:padding="3dp"/>
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tv_api_test"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@{viewModel.stations.get(0).sna}"
-                />
-
-<!--            <androidx.recyclerview.widget.RecyclerView-->
-<!--                android:id="@+id/rv_stations"-->
+<!--            <TextView-->
+<!--                android:id="@+id/tv_api_test"-->
 <!--                android:layout_width="match_parent"-->
 <!--                android:layout_height="match_parent"-->
-<!--                android:clipChildren="true"-->
-<!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--                tools:listitem="@layout/item_layout_01"-->
+<!--                android:text="@{viewModel.stations.get(0).sna}"-->
 <!--                />-->
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_stations"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="true"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:listData="@{viewModel.stations}"
+                tools:listitem="@layout/item_layout_01"
+                />
 
         </LinearLayout>
 

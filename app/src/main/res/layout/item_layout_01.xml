@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="station"
+            type="com.app.ubike.network.Station" />
+    </data>
+
     <LinearLayout
         android:id="@+id/ll_item"
         android:layout_width="match_parent"
@@ -24,7 +31,7 @@
             android:layout_weight="2"
             android:textAppearance="@style/my_style_3"
             android:gravity="center"
-            android:text="大安區" />
+            android:text="@{station.sarea}" />
 
         <TextView
             android:id="@+id/tv_station"
@@ -33,6 +40,6 @@
             android:layout_weight="5"
             android:textAppearance="@style/my_style_3"
             android:gravity="center"
-            android:text="大安森林公園" />
+            android:text="@{station.sna}" />
     </LinearLayout>
 </layout>
