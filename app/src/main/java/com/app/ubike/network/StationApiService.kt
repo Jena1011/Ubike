@@ -6,6 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 
+// API 來源 URL
 private const val BASE_URL =
     "https://tcgbusfs.blob.core.windows.net/dotapp/youbike/v2/"
 
@@ -29,13 +30,16 @@ private val retrofit = Retrofit.Builder()
  */
 interface StationsApiService {
     /**
-     * 回傳字串資料
+     * 回傳 [Station] 列表資料
      */
     @GET("youbike_immediate.json")
     suspend fun getStations() : List<Station>
 
 }
 
+/**
+ * 定義 StationApi 物件，它提供對 StationsApiService 的存取
+ */
 object StationApi {
     val retrofitService: StationsApiService by lazy { retrofit.create(StationsApiService::class.java) }
 }

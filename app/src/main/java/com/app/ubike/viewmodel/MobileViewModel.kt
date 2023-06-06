@@ -9,8 +9,14 @@ import com.app.ubike.network.Station
 import com.app.ubike.network.StationApi
 import kotlinx.coroutines.launch
 
+/**
+ * 用於表示 StationsApi 的狀態的列舉類別，包含 LOADING, ERROR, DONE 三種狀態。
+ */
 enum class StationsApiStatus { LOADING, ERROR, DONE }
 
+/**
+ * [ViewModel] 子類，用於管理 MobileFragment 相關的數據和邏輯。
+ */
 class MobileViewModel : ViewModel() {
 
     private val _status = MutableLiveData<StationsApiStatus>()
@@ -18,10 +24,16 @@ class MobileViewModel : ViewModel() {
     private val _stations  = MutableLiveData<List<Station>>()
     val stations: LiveData<List<Station>> = _stations
 
+    /**
+     * 初始化，獲取站點數據。
+     */
     init {
         getStations()
     }
 
+    /**
+     * 執行網路請求，獲取站點數據。
+     */
     private fun getStations() {
         viewModelScope.launch {
             _status.value = StationsApiStatus.LOADING
@@ -36,5 +48,4 @@ class MobileViewModel : ViewModel() {
             Log.d("MobileViewModel",status.toString())
         }
     }
-
 }

@@ -8,8 +8,7 @@ import android.view.ViewGroup
 import com.app.ubike.R
 
 /**
- * A simple [Fragment] subclass.
- *
+ * 用於顯示「選單」畫面的 [Fragment] 子類
  */
 class MenuFragment : Fragment() {
 
@@ -17,7 +16,6 @@ class MenuFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_menu, container, false)
     }
 }
