@@ -5,9 +5,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.app.ubike.adapter.ContainsFilterAdapter
 import com.app.ubike.adapter.StationsAdapter
 import com.app.ubike.databinding.FragmentMobileBinding
 import com.app.ubike.network.Station
@@ -26,7 +26,7 @@ class MobileFragment : Fragment() {
     private val viewModel: MobileViewModel by viewModels()
     lateinit var adapter: StationsAdapter
     private var adviceList: MutableList<String> = mutableListOf()
-    private lateinit var adviceAdapter: ArrayAdapter<String>
+    private lateinit var adviceAdapter: ContainsFilterAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,16 +49,14 @@ class MobileFragment : Fragment() {
 
             val data = viewModel.fetchStations()
             data.forEach { station: Station -> adviceList.add(station.sna) }
-            adviceAdapter = ArrayAdapter(
-                requireContext(),
-                android.R.layout.simple_dropdown_item_1line, adviceList
-            )
+            adviceAdapter = ContainsFilterAdapter(requireContext(),adviceList)
             binding.autoCompleteTextView.setAdapter(adviceAdapter)
 
             Log.d(TAG,adviceList.toString())
             Log.d(TAG,adviceAdapter.count.toString())
 
         }
+
         return binding.root
     }
 }
