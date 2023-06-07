@@ -5,8 +5,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.app.ubike.R
 import com.app.ubike.adapter.ContainsFilterAdapter
 import com.app.ubike.adapter.StationsAdapter
 import com.app.ubike.databinding.FragmentMobileBinding
@@ -49,12 +51,35 @@ class MobileFragment : Fragment() {
 
             val data = viewModel.fetchStations()
             data.forEach { station: Station -> adviceList.add(station.sna) }
-            adviceAdapter = ContainsFilterAdapter(requireContext(),adviceList)
+            adviceAdapter = ContainsFilterAdapter(requireContext(), adviceList)
             binding.autoCompleteTextView.setAdapter(adviceAdapter)
 
-            Log.d(TAG,adviceList.toString())
-            Log.d(TAG,adviceAdapter.count.toString())
+            Log.d(TAG, adviceList.toString())
+            Log.d(TAG, adviceAdapter.count.toString())
 
+        }
+
+        // 監聽 autoCompleteTextView 文字變化
+        binding.autoCompleteTextView.doOnTextChanged { text, _, _, _ ->
+
+            // 修改 search icon 顏色
+            if (text != null) {
+                if (text.isNotEmpty()) {
+                    binding.autoCompleteTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_search_green,
+                        0
+                    )
+                } else {
+                    binding.autoCompleteTextView.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        0,
+                        0,
+                        R.drawable.icon_search,
+                        0
+                    )
+                }
+            }
         }
 
         return binding.root
