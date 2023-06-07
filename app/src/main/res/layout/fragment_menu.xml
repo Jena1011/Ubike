@@ -19,7 +19,7 @@
 
         <!-- close icon -->
         <View
-            android:id="@+id/icon_menu"
+            android:id="@+id/icon_close"
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginTop="29dp"

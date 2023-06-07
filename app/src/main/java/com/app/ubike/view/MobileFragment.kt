@@ -10,6 +10,7 @@ import android.view.ViewOutlineProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.app.ubike.R
 import com.app.ubike.adapter.ContainsFilterAdapter
 import com.app.ubike.adapter.StationsAdapter
@@ -97,7 +98,12 @@ class MobileFragment : Fragment() {
 
             // 執行搜尋
             viewModel.queryStationsByKeyword(currentText)
+        }
 
+        // 導航至「目錄」畫面
+        binding.iconMenu.setOnClickListener {
+            val action = MobileFragmentDirections.actionMobileFragmentToMenuFragment()
+            findNavController().navigate(action)
         }
 
         return binding.root

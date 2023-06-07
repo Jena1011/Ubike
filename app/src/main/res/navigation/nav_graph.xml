@@ -9,10 +9,18 @@
         android:id="@+id/menuFragment"
         android:name="com.app.ubike.view.MenuFragment"
         android:label="fragment_menu"
-        tools:layout="@layout/fragment_menu" />
+        tools:layout="@layout/fragment_menu" >
+        <action
+            android:id="@+id/action_menuFragment_to_mobileFragment"
+            app:destination="@id/mobileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/mobileFragment"
         android:name="com.app.ubike.view.MobileFragment"
         android:label="fragment_mobile"
-        tools:layout="@layout/fragment_mobile" />
+        tools:layout="@layout/fragment_mobile" >
+        <action
+            android:id="@+id/action_mobileFragment_to_menuFragment"
+            app:destination="@id/menuFragment" />
+    </fragment>
 </navigation>
