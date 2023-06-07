@@ -21,8 +21,10 @@ class MobileViewModel : ViewModel() {
 
     private val _status = MutableLiveData<StationsApiStatus>()
     val status: LiveData<StationsApiStatus> = _status
-    private val _stations  = MutableLiveData<List<Station>>()
-    val stations: LiveData<List<Station>> = _stations
+    private val _originalStations  = MutableLiveData<List<Station>>()
+    val originalStations: LiveData<List<Station>> = _originalStations
+    private val _displayedStations  = MutableLiveData<List<Station>>()
+    val displayedStations: LiveData<List<Station>> = _displayedStations
 
     /**
      * 初始化，獲取站點數據。
@@ -38,10 +40,11 @@ class MobileViewModel : ViewModel() {
         viewModelScope.launch {
             _status.value = StationsApiStatus.LOADING
             try {
-                _stations.value = StationApi.retrofitService.getStations()
+                _originalStations.value = StationApi.retrofitService.getStations()
                 _status.value = StationsApiStatus.DONE
+                _displayedStations.value = originalStations.value
             } catch (e: Exception) {
-                _stations.value = listOf()
+                _originalStations.value = listOf()
                 _status.value = StationsApiStatus.ERROR
                 Log.d("MobileViewModel",e.message.toString())
             }
@@ -55,4 +58,15 @@ class MobileViewModel : ViewModel() {
     suspend fun fetchStations(): List<Station> = CoroutineScope(Dispatchers.IO).async {
         return@async StationApi.retrofitService.getStations()
     }.await()
+
+
+
+    fun queryStationsByKeyword(str: String){
+        _displayedStations.value?.toMutableList()?.clear()
+        if(str.isNotEmpty()){
+            _displayedStations.value = originalStations.value?.filter { station: Station -> station.sna.contains(str) || station.sarea.contains(str) }
+        }else{
+            _displayedStations.value = originalStations.value
+        }
+    }
 }

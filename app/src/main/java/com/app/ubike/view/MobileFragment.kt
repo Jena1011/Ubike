@@ -1,10 +1,13 @@
 package com.app.ubike.view
 
+import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -29,6 +32,7 @@ class MobileFragment : Fragment() {
     lateinit var adapter: StationsAdapter
     private var adviceList: MutableList<String> = mutableListOf()
     private lateinit var adviceAdapter: ContainsFilterAdapter
+    var currentText: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -62,6 +66,9 @@ class MobileFragment : Fragment() {
         // 監聽 autoCompleteTextView 文字變化
         binding.autoCompleteTextView.doOnTextChanged { text, _, _, _ ->
 
+            // 獲取當前輸入文字
+            currentText = text.toString()
+
             // 修改 search icon 顏色
             if (text != null) {
                 if (text.isNotEmpty()) {
@@ -79,6 +86,24 @@ class MobileFragment : Fragment() {
                         0
                     )
                 }
+            }
+        }
+
+        // 監聽 IME 事件
+        binding.autoCompleteTextView.setOnEditorActionListener { _, actionId, _ ->
+            when (actionId) {
+                EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_SEARCH -> {
+
+                    // 隱藏鍵盤
+                    val imm =  requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(binding.autoCompleteTextView.windowToken, 0)
+
+                    // 執行搜尋
+                    viewModel.queryStationsByKeyword(currentText)
+
+                    true
+                }
+                else -> false
             }
         }
 

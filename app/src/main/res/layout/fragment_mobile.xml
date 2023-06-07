@@ -83,7 +83,8 @@
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_stations" />
+            app:layout_constraintTop_toBottomOf="@id/tv_stations"
+            android:imeOptions="actionDone"/>
 
         <!-- 站點列表區塊 -->
         <LinearLayout
@@ -155,7 +156,7 @@
                 android:layout_height="match_parent"
                 android:clipChildren="true"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:listData="@{viewModel.stations}"
+                app:listData="@{viewModel.displayedStations}"
                 tools:listitem="@layout/item_layout_01" />
 
         </LinearLayout>
