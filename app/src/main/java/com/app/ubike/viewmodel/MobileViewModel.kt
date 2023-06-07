@@ -60,7 +60,9 @@ class MobileViewModel : ViewModel() {
     }.await()
 
 
-
+    /**
+     * 取得包含關鍵字的站點資料
+     */
     fun queryStationsByKeyword(str: String){
         _displayedStations.value?.toMutableList()?.clear()
         if(str.isNotEmpty()){
