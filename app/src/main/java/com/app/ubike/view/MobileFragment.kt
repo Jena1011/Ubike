@@ -1,22 +1,32 @@
 package com.app.ubike.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.app.ubike.adapter.StationsAdapter
 import com.app.ubike.databinding.FragmentMobileBinding
+import com.app.ubike.network.Station
 import com.app.ubike.viewmodel.MobileViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
 
 /**
  * 用於顯示「站點資訊」畫面的 [Fragment] 子類
  */
 class MobileFragment : Fragment() {
 
+    private val TAG: String = "MobileFragment"
     private val viewModel: MobileViewModel by viewModels()
     lateinit var adapter: StationsAdapter
+    private var adviceList: MutableList<String> = mutableListOf()
+    private lateinit var adviceAdapter: ArrayAdapter<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,6 +44,21 @@ class MobileFragment : Fragment() {
         adapter = StationsAdapter()
         binding.rvStations.adapter = adapter
 
+        // 設定 autoCompleteTextView 自動完成建議
+        CoroutineScope(Dispatchers.Main).launch {
+
+            val data = viewModel.fetchStations()
+            data.forEach { station: Station -> adviceList.add(station.sna) }
+            adviceAdapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_dropdown_item_1line, adviceList
+            )
+            binding.autoCompleteTextView.setAdapter(adviceAdapter)
+
+            Log.d(TAG,adviceList.toString())
+            Log.d(TAG,adviceAdapter.count.toString())
+
+        }
         return binding.root
     }
 }

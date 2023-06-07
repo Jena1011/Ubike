@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.app.ubike.network.Station
 import com.app.ubike.network.StationApi
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 /**
  * 用於表示 StationsApi 的狀態的列舉類別，包含 LOADING, ERROR, DONE 三種狀態。
@@ -32,7 +32,7 @@ class MobileViewModel : ViewModel() {
     }
 
     /**
-     * 執行網路請求，獲取站點數據。
+     * 用於從 [StationApi] 擷取站點資料
      */
     private fun getStations() {
         viewModelScope.launch {
@@ -48,4 +48,11 @@ class MobileViewModel : ViewModel() {
             Log.d("MobileViewModel",status.toString())
         }
     }
+
+    /**
+     * 暫停函式，用於從 [StationApi] 擷取站點資料
+     */
+    suspend fun fetchStations(): List<Station> = CoroutineScope(Dispatchers.IO).async {
+        return@async StationApi.retrofitService.getStations()
+    }.await()
 }
