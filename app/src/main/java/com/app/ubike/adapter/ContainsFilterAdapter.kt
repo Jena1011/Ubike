@@ -1,9 +1,14 @@
 package com.app.ubike.adapter
 
 import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.Filter
+import android.widget.TextView
+import com.app.ubike.R
 
 /**
  * [ArrayAdapter] 子類，用來提供 [AutoCompleteTextView] 自動完成建議下拉選單內容，提供 item 佈局及自訂過濾功能
@@ -68,4 +73,22 @@ class ContainsFilterAdapter(context: Context, private val originalList: List<Str
             }
         }
     }
+
+    /**
+     * 獲取指定位置的項目視圖，並設置顯示內容
+     */
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        super.getView(position, convertView, parent)
+
+        var view = convertView
+        if (view == null) {
+            view = LayoutInflater.from(context).inflate(R.layout.custom_dropdown_item, parent, false)
+        }
+
+        val itemText = view?.findViewById<TextView>(R.id.itemText)
+        itemText?.text = getItem(position)
+
+        return view!!
+    }
+
 }

@@ -1,13 +1,10 @@
 package com.app.ubike.view
 
-import android.app.Activity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
-import android.view.inputmethod.InputMethodManager
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -87,24 +84,10 @@ class MobileFragment : Fragment() {
                     )
                 }
             }
-        }
 
-        // 監聽 IME 事件
-        binding.autoCompleteTextView.setOnEditorActionListener { _, actionId, _ ->
-            when (actionId) {
-                EditorInfo.IME_ACTION_DONE, EditorInfo.IME_ACTION_SEARCH -> {
+            // 執行搜尋
+            viewModel.queryStationsByKeyword(currentText)
 
-                    // 隱藏鍵盤
-                    val imm =  requireActivity().getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(binding.autoCompleteTextView.windowToken, 0)
-
-                    // 執行搜尋
-                    viewModel.queryStationsByKeyword(currentText)
-
-                    true
-                }
-                else -> false
-            }
         }
 
         return binding.root
