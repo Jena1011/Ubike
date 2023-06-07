@@ -11,4 +11,5 @@
     <string name="city">縣市</string>
     <string name="area">區域</string>
     <string name="station_name">站點名稱</string>
+    <string name="taipei">台北市</string>
 </resources>

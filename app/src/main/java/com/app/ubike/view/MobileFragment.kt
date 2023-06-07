@@ -1,10 +1,12 @@
 package com.app.ubike.view
 
+import android.graphics.Outline
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewOutlineProvider
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,6 +44,14 @@ class MobileFragment : Fragment() {
         // 雙向綁定
         binding.lifecycleOwner = this
         binding.viewModel = viewModel
+
+        // 站點列表區塊圓角裁切
+        binding.llStations.outlineProvider = object : ViewOutlineProvider() {
+            override fun getOutline(view: View?, outline: Outline?) {
+                outline?.setRoundRect(0, 0, view?.width ?:0, view?.height ?:0, 30.0f)
+            }
+        }
+        binding.llStations.clipToOutline = true
 
         // 站點列表 rv 設定 adapter
         adapter = StationsAdapter()
