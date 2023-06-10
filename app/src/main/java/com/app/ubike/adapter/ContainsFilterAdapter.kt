@@ -11,27 +11,13 @@ import android.widget.TextView
 import com.app.ubike.R
 
 /**
- * [ArrayAdapter] 子類，用來提供 [AutoCompleteTextView] 自動完成建議下拉選單內容，提供 item 佈局及自訂過濾功能
+ * [ArrayAdapter] 子類，用來提供 [AutoCompleteTextView] 自動完成建議下拉選單內容，提供 item 佈局、自訂過濾功能、支援 dataBinding
  */
-class ContainsFilterAdapter(context: Context, private val originalList: List<String>): ArrayAdapter<String>(context,android.R.layout.simple_dropdown_item_1line) {
+class ContainsFilterAdapter(context: Context, dataList: List<String>) :
+    ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line) {
 
+    private var originalList: MutableList<String> = dataList as MutableList<String>
     var mFilteredList = mutableListOf<String>() // 過濾後的資料列表
-
-    /**
-     * 獲取過濾後的資料列表筆數
-     * @return 列表筆數
-     */
-    override fun getCount(): Int {
-        return mFilteredList.size
-    }
-
-    /**
-     * 獲取過濾後的資料列表中指定位置的項目
-     * @param position 資料位置
-     */
-    override fun getItem(position: Int): String {
-        return mFilteredList[position]
-    }
 
     /**
      * 獲取過濾器對象，以執行過濾操作
@@ -66,6 +52,7 @@ class ContainsFilterAdapter(context: Context, private val originalList: List<Str
              * 發布過濾結果，將過濾後的資料列表 [mFilteredList] 加入 Adapter 中並通知數據集已更改
              */
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                clear()
                 if (results?.values is List<*>) {
                     addAll(mFilteredList)
                     notifyDataSetChanged()
@@ -82,13 +69,24 @@ class ContainsFilterAdapter(context: Context, private val originalList: List<Str
 
         var view = convertView
         if (view == null) {
-            view = LayoutInflater.from(context).inflate(R.layout.custom_dropdown_item, parent, false)
+            view =
+                LayoutInflater.from(context).inflate(R.layout.custom_dropdown_item, parent, false)
         }
 
         val itemText = view?.findViewById<TextView>(R.id.itemText)
         itemText?.text = getItem(position)
 
         return view!!
+    }
+
+    /**
+     * 設定列表資料
+     */
+    fun submitList(data: List<String>?) {
+        if (data != null) {
+            originalList = data.toMutableList()
+        }
+        notifyDataSetChanged()
     }
 
 }

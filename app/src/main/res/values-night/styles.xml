@@ -1,0 +1,11 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Widget.Theme.Ubike.MySearchView" parent="">
+        <item name="android:textColorHint">"#AEAEAE"</item>
+        <item name="android:lineSpacingExtra">-4sp</item>
+        <item name="android:paddingHorizontal" tools:targetApi="o">16dp</item>
+        <item name="android:paddingVertical" tools:targetApi="o">8dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:textColor">#B5CC22</item>
+    </style>
+</resources>

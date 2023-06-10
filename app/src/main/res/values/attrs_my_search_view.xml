@@ -1,0 +1,5 @@
+<resources>
+    <declare-styleable name="MyAutoCompleteTextView">
+        <attr name="dropdownItems" format="reference" />
+    </declare-styleable>
+</resources>

@@ -1,13 +1,12 @@
 package com.app.ubike.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.app.ubike.network.Station
 import com.app.ubike.network.StationApi
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 /**
  * 用於表示 StationsApi 的狀態的列舉類別，包含 LOADING, ERROR, DONE 三種狀態。
@@ -21,10 +20,13 @@ class MobileViewModel : ViewModel() {
 
     private val _status = MutableLiveData<StationsApiStatus>()
     val status: LiveData<StationsApiStatus> = _status
-    private val _originalStations  = MutableLiveData<List<Station>>()
+    private val _originalStations = MutableLiveData<List<Station>>()
     val originalStations: LiveData<List<Station>> = _originalStations
-    private val _displayedStations  = MutableLiveData<List<Station>>()
+    private val _displayedStations = MutableLiveData<List<Station>>()
     val displayedStations: LiveData<List<Station>> = _displayedStations
+    val snaList: LiveData<List<String>> = Transformations.map(originalStations) { stations ->
+        stations.map { it.sna }
+    }
 
     /**
      * 初始化，獲取站點數據。
@@ -46,9 +48,7 @@ class MobileViewModel : ViewModel() {
             } catch (e: Exception) {
                 _originalStations.value = listOf()
                 _status.value = StationsApiStatus.ERROR
-                Log.d("MobileViewModel",e.message.toString())
             }
-            Log.d("MobileViewModel",status.toString())
         }
     }
 
@@ -63,11 +63,13 @@ class MobileViewModel : ViewModel() {
     /**
      * 取得包含關鍵字的站點資料
      */
-    fun queryStationsByKeyword(str: String){
+    fun queryStationsByKeyword(str: String) {
         _displayedStations.value?.toMutableList()?.clear()
-        if(str.isNotEmpty()){
-            _displayedStations.value = originalStations.value?.filter { station: Station -> station.sna.contains(str) || station.sarea.contains(str) }
-        }else{
+        if (str.isNotEmpty()) {
+            _displayedStations.value = originalStations.value?.filter { station: Station ->
+                station.sna.contains(str,true) || station.sarea.contains(str,true)
+            }
+        } else {
             _displayedStations.value = originalStations.value
         }
     }

@@ -64,7 +64,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <!-- search -->
-        <AutoCompleteTextView
+        <com.app.ubike.ui.MyAutoCompleteTextView
             android:id="@+id/autoCompleteTextView"
             android:layout_width="0dp"
             android:layout_height="40dp"
@@ -88,6 +88,7 @@
             android:popupBackground="@drawable/bg_light_gray_radius"
             android:dropDownVerticalOffset="16dp"
             android:completionThreshold="1"
+            app:dropdownItems="@{viewModel.snaList}"
             />
 
         <!-- 站點列表區塊 -->
