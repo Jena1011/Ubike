@@ -3,9 +3,6 @@ package com.app.ubike.viewmodel
 import androidx.lifecycle.*
 import com.app.ubike.network.Station
 import com.app.ubike.network.StationApi
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 /**
@@ -18,13 +15,13 @@ enum class StationsApiStatus { LOADING, ERROR, DONE }
  */
 class MobileViewModel : ViewModel() {
 
-    private val _status = MutableLiveData<StationsApiStatus>()
+    private val _status = MutableLiveData<StationsApiStatus>()  // api 資料加載狀態
     val status: LiveData<StationsApiStatus> = _status
-    private val _originalStations = MutableLiveData<List<Station>>()
+    private val _originalStations = MutableLiveData<List<Station>>()  // 原始站點列表
     val originalStations: LiveData<List<Station>> = _originalStations
-    private val _displayedStations = MutableLiveData<List<Station>>()
+    private val _displayedStations = MutableLiveData<List<Station>>()      // 顯示結果
     val displayedStations: LiveData<List<Station>> = _displayedStations
-    val snaList: LiveData<List<String>> = Transformations.map(originalStations) { stations ->
+    val snaList: LiveData<List<String>> = Transformations.map(originalStations) { stations ->  // AutoCompleteTextView 使用資料
         stations.map { it.sna }
     }
 
@@ -51,14 +48,6 @@ class MobileViewModel : ViewModel() {
             }
         }
     }
-
-    /**
-     * 暫停函式，用於從 [StationApi] 擷取站點資料
-     */
-    suspend fun fetchStations(): List<Station> = CoroutineScope(Dispatchers.IO).async {
-        return@async StationApi.retrofitService.getStations()
-    }.await()
-
 
     /**
      * 取得包含關鍵字的站點資料

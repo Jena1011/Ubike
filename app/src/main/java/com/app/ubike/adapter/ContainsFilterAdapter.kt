@@ -16,7 +16,7 @@ import com.app.ubike.R
 class ContainsFilterAdapter(context: Context, dataList: List<String>) :
     ArrayAdapter<String>(context, android.R.layout.simple_dropdown_item_1line) {
 
-    private var originalList: MutableList<String> = dataList as MutableList<String>
+    private var originalList: MutableList<String> = dataList as MutableList<String> // 原始資料
     var mFilteredList = mutableListOf<String>() // 過濾後的資料列表
 
     /**
